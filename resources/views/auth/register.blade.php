@@ -32,7 +32,7 @@
         @endif
         {{-- ================================================ --}}
 
-        <form action="{{ route('register') }}" method="POST">
+        <form action="{{ url('/register') }}" method="POST">
             @csrf
             
             <div class="mb-5">
