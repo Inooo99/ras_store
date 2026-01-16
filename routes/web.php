@@ -37,7 +37,7 @@ Route::get('/beli-game/{id}', [CheckoutController::class, 'game']);
 // --- RUTE PRODUK UNTUK PENGUNJUNG (PUBLIC) ---
 
 // 1. Untuk melihat detail produk (Misal: diklik dari home)
-Route::get('/product/{id}', [ProductController::class, 'showPublic'])->name('product.detail');
+Route::get('/produk/{id}', [ProductController::class, 'showPublic'])->name('product.detail');
 
 // 2. Untuk fitur pencarian (Search Bar)
 Route::get('/search', [ProductController::class, 'search'])->name('product.search');
