@@ -7,16 +7,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class IsAdmin
+class Admin
 {
+    /**
+     * Handle an incoming request.
+     */
     public function handle(Request $request, Closure $next): Response
     {
-        // Cek: Apakah dia login? DAN Apakah role-nya 'admin'?
+        // Cek 1: Apakah sudah login?
+        // Cek 2: Apakah role-nya 'admin'?
         if (Auth::check() && Auth::user()->role == 'admin') {
             return $next($request); // Silakan masuk bos
         }
 
-        // Kalau bukan admin, tendang ke halaman home atau error
-        return redirect('/')->with('error', 'Anda tidak punya akses admin!');
+        // Kalau bukan admin, tendang ke halaman home
+        return redirect('/home')->with('error', 'Anda tidak punya akses ke halaman Admin!');
     }
 }
