@@ -9,28 +9,36 @@
 </div>
 
 <div class="row text-center">
+    
+    {{-- TOMBOL APLIKASI PREMIUM --}}
     <div class="col-md-4 mb-4">
-        <div class="card p-3">
-            <h5>Aplikasi Premium</h5>
-            <p class="text-muted">Langganan aplikasi premium dengan tanpa batas, bebas iklan, dan offline mode.</p>
-            <a href="{{ url('/produk/1') }}" class="btn btn-custom btn-sm">Cek Produk</a>
+        <div class="card p-3 shadow-sm border-secondary bg-dark text-light">
+            <h5 class="text-warning fw-bold">Aplikasi Premium</h5>
+            <p class="text-white-50">Langganan aplikasi premium dengan tanpa batas, bebas iklan, dan offline mode.</p>
+            {{-- Mengarah ke /kategori/aplikasi --}}
+            <a href="{{ url('/kategori/aplikasi') }}" class="btn btn-warning fw-bold btn-sm">Cek Produk</a>
         </div>
     </div>
 
+    {{-- TOMBOL SUNTIK SOSMED --}}
     <div class="col-md-4 mb-4">
-        <div class="card p-3">
-            <h5>Suntik Sosmed</h5>
-            <p class="text-muted">Tambahkan followers aktif & real untuk akun sosmed-mu.</p>
-            <a href="{{ url('/produk/2') }}" class="btn btn-custom btn-sm">Cek Produk</a>
+        <div class="card p-3 shadow-sm border-secondary bg-dark text-light">
+            <h5 class="text-warning fw-bold">Suntik Sosmed</h5>
+            <p class="text-white-50">Tambahkan followers aktif & real untuk akun sosmed-mu.</p>
+            {{-- Mengarah ke /kategori/sosmed --}}
+            <a href="{{ url('/kategori/sosmed') }}" class="btn btn-warning fw-bold btn-sm">Cek Produk</a>
         </div>
     </div>
 
+    {{-- TOMBOL TOP UP GAME --}}
     <div class="col-md-4 mb-4">
-        <div class="card p-3">
-            <h5>Top Up Game</h5>
-            <p class="text-muted">Top up game kalian dengan murah, cepat, dan terpercaya.</p>
-            <a href="{{ url('/produk/3') }}" class="btn btn-custom btn-sm">Cek Produk</a>
+        <div class="card p-3 shadow-sm border-secondary bg-dark text-light">
+            <h5 class="text-warning fw-bold">Top Up Game</h5>
+            <p class="text-white-50">Top up game kalian dengan murah, cepat, dan terpercaya.</p>
+            {{-- Mengarah ke /kategori/game --}}
+            <a href="{{ url('/kategori/game') }}" class="btn btn-warning fw-bold btn-sm">Cek Produk</a>
         </div>
     </div>
+
 </div>
 @endsection

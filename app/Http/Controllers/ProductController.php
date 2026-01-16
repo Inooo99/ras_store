@@ -102,4 +102,10 @@ class ProductController extends Controller
         $product = \App\Models\Product::findOrFail($id);
         return view('product-detail', compact('product'));
     }
+    // Buka Halaman Kategori Aplikasi
+    public function indexPublic()
+    {
+        $products = Product::all();
+        return view('product1', compact('products'));
+    }
 }

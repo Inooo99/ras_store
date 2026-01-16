@@ -90,4 +90,10 @@ class SosmedController extends Controller
         $sosmed = \App\Models\Sosmed::findOrFail($id);
         return view('sosmed-detail', compact('sosmed'));
     }
+    // Buka Halaman Kategori Sosmed
+    public function indexPublic()
+    {
+        $sosmeds = \App\Models\Sosmed::all(); // Pakai full path model biar aman
+        return view('product2', compact('sosmeds'));
+    }
 }

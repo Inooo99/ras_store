@@ -91,4 +91,10 @@ class GameController extends Controller
         $game = \App\Models\Game::findOrFail($id);
         return view('game-detail', compact('game'));
     }
+    // Buka Halaman Kategori Game
+    public function indexPublic()
+    {
+        $games = \App\Models\Game::all(); // Pakai full path model biar aman
+        return view('product3', compact('games'));
+    }
 }

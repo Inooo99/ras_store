@@ -48,6 +48,11 @@ Route::get('/game/{id}', [GameController::class, 'showPublic'])->name('game.deta
 // 4. Fitur Pencarian (Opsional, saat ini pakai ProductController)
 Route::get('/search', [ProductController::class, 'search'])->name('product.search');
 
+// --- RUTE HALAMAN KATEGORI (LISTING) ---
+Route::get('/kategori/aplikasi', [ProductController::class, 'indexPublic']);
+Route::get('/kategori/sosmed', [SosmedController::class, 'indexPublic']);
+Route::get('/kategori/game', [GameController::class, 'indexPublic']);
+
 // --- ADMIN ---
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('admin/products', ProductController::class)->names('products');
