@@ -92,9 +92,8 @@ class GameController extends Controller
         return view('game-detail', compact('game'));
     }
     // Buka Halaman Kategori Game
-    public function indexPublic()
-    {
-        $games = \App\Models\Game::all(); // Pakai full path model biar aman
+    public function indexPublic() {
+        $games = \App\Models\Game::all();
         return view('product3', compact('games'));
     }
 }

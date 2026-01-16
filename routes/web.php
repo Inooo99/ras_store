@@ -67,3 +67,8 @@ Route::get('/obat-ganteng', function () {
     Artisan::call('storage:link'); 
     return "<h1>SUKSES!</h1> Cache dibersihkan & Database di-reset.";
 });
+
+// --- RUTE HALAMAN KATEGORI (STEP 2) ---
+Route::get('/kategori/aplikasi', [ProductController::class, 'indexPublic']);
+Route::get('/kategori/sosmed', [SosmedController::class, 'indexPublic']);
+Route::get('/kategori/game', [GameController::class, 'indexPublic']);

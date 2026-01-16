@@ -23,18 +23,10 @@ class CheckoutController extends Controller
     {
         $item = Product::findOrFail($id);
         $orderId = 'PREM-' . $item->id . '-' . time();
-        
         $params = [
-            'transaction_details' => [
-                'order_id' => $orderId,
-                'gross_amount' => (int) $item->price,
-            ],
-            'customer_details' => [
-                'first_name' => 'Pelanggan',
-                'email' => 'customer@example.com',
-            ],
+            'transaction_details' => ['order_id' => $orderId, 'gross_amount' => (int) $item->price],
+            'customer_details' => ['first_name' => 'User', 'email' => 'user@example.com'],
         ];
-
         $snapToken = Snap::getSnapToken($params);
         return view('checkout', compact('snapToken', 'item'));
     }
@@ -43,19 +35,10 @@ class CheckoutController extends Controller
     {
         $item = Sosmed::findOrFail($id);
         $orderId = 'SOS-' . $item->id . '-' . time();
-        
         $params = [
-            'transaction_details' => [
-                'order_id' => $orderId,
-                'gross_amount' => (int) $item->harga,
-            ],
-            // TAMBAHAN WAJIB AGAR MIDTRANS TIDAK ERROR
-            'customer_details' => [
-                'first_name' => 'Pelanggan Sosmed',
-                'email' => 'customer@example.com',
-            ],
+            'transaction_details' => ['order_id' => $orderId, 'gross_amount' => (int) $item->harga],
+            'customer_details' => ['first_name' => 'User Sosmed', 'email' => 'user@example.com'], // FIXED
         ];
-
         $snapToken = Snap::getSnapToken($params);
         return view('checkout', compact('snapToken', 'item'));
     }
@@ -64,19 +47,10 @@ class CheckoutController extends Controller
     {
         $item = Game::findOrFail($id);
         $orderId = 'GAME-' . $item->id . '-' . time();
-        
         $params = [
-            'transaction_details' => [
-                'order_id' => $orderId,
-                'gross_amount' => (int) $item->harga,
-            ],
-            // TAMBAHAN WAJIB
-            'customer_details' => [
-                'first_name' => 'Gamer',
-                'email' => 'customer@example.com',
-            ],
+            'transaction_details' => ['order_id' => $orderId, 'gross_amount' => (int) $item->harga],
+            'customer_details' => ['first_name' => 'User Game', 'email' => 'user@example.com'], // FIXED
         ];
-
         $snapToken = Snap::getSnapToken($params);
         return view('checkout', compact('snapToken', 'item'));
     }
