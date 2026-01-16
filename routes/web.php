@@ -12,8 +12,8 @@ use App\Models\Game;
 use Illuminate\Support\Facades\Artisan;
 
 // --- HALAMAN AUTH ---
+Route::get('/register', [UserController::class, 'showRegister'])->name('register.show');
 Route::post('/register', [UserController::class, 'register'])->name('register');
-Route::post('/register', [UserController::class, 'register']);
 Route::get('/login', [UserController::class, 'showLogin'])->name('login');
 Route::post('/login', [UserController::class, 'login']);
 Route::get('/logout', [UserController::class, 'logout']);
@@ -26,23 +26,23 @@ Route::get('/post', function () { return view('post'); });
 
 // --- RUTE PRODUK DINAMIS (USER VIEW) ---
 
-// 1. Halaman Aplikasi Premium
-Route::get('/produk/1', function () {
-    $products = Product::all(); // Ambil dari database
-    return view('product1', compact('products'));
-});
+// Halaman Utama
+Route::get('/', function () {
+    return view('home'); // Sesuaikan dengan view home Anda
+})->name('home');
 
-// 2. Halaman Suntik Sosmed
-Route::get('/produk/2', function () {
-    $sosmeds = Sosmed::all(); // Ambil dari database
-    return view('product2', compact('sosmeds'));
-});
+// === BAGIAN REGISTER (PERBAIKAN DISINI) ===
+// 1. Tampilkan Form
+Route::get('/register', [UserController::class, 'showRegister'])->name('register.form');
 
-// 3. Halaman Topup Game
-Route::get('/produk/3', function () {
-    $games = Game::all(); // Ambil dari database
-    return view('product3', compact('games'));
-});
+// 2. Proses Data (INI YANG DICARI OLEH FORM BLADE)
+Route::post('/register', [UserController::class, 'register'])->name('register'); 
+// ^^^ Perhatikan ->name('register') ini wajib ada!
+
+// === BAGIAN LOGIN ===
+Route::get('/login', [UserController::class, 'showLogin'])->name('login');
+Route::post('/login', [UserController::class, 'login'])->name('login.perform');
+Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
 // --- RUTE PEMBAYARAN MIDTRANS ---
 Route::get('/beli-premium/{id}', [CheckoutController::class, 'premium']);
