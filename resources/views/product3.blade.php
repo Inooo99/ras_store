@@ -11,35 +11,30 @@
 <div class="container">
     <div class="row justify-content-center">
 
-        {{-- LOOPING GAMES --}}
         @forelse($games as $game)
-        <div class="col-md-4 mb-4">
-            <div class="card bg-dark text-light shadow-lg border-secondary h-100">
+        <div class="col-6 col-md-3 mb-3 px-2"> <div class="card bg-dark text-light shadow-sm border-secondary h-100">
                 
                 @if($game->gambar)
-                    <img src="{{ asset('uploads/' . $game->gambar) }}" class="card-img-top" style="height: 250px; object-fit: cover;">
+                    <img src="{{ asset('uploads/' . $game->gambar) }}" class="card-img-top" style="height: 130px; object-fit: cover;">
                 @else
-                    <div class="d-flex align-items-center justify-content-center bg-secondary" style="height: 250px;">No Logo</div>
+                    <div class="d-flex align-items-center justify-content-center bg-secondary small" style="height: 130px;">No IMG</div>
                 @endif
 
-                <div class="card-body text-center d-flex flex-column">
-                    <h4 class="fw-bold text-warning">{{ $game->nama_game }}</h4>
+                <div class="card-body text-center p-2 d-flex flex-column">
+                    <h6 class="fw-bold text-warning text-truncate mb-1" style="font-size: 0.9rem;">{{ $game->nama_game }}</h6>
+                    <div class="mb-1"><span class="badge bg-secondary" style="font-size: 0.6rem;">{{ $game->nominal }}</span></div>
+                    <p class="text-info fw-bold small mb-1">Rp {{ number_format($game->harga, 0, ',', '.') }}</p>
                     
-                    {{-- Tampilkan Nominal (Contoh: 86 Diamonds) --}}
-                    <div class="badge bg-secondary mb-2 fs-6">{{ $game->nominal }}</div>
-                    
-                    <p class="text-info fw-bold fs-5">Rp {{ number_format($game->harga, 0, ',', '.') }}</p>
-                    
-                    {{-- Pembelian --}}
-                    <a href="{{ url('/beli-game/' . $game->id) }}" class="btn btn-warning mt-3 fw-bold text-dark w-100">
-                        Top Up Sekarang
+                    {{-- PERBAIKAN LINK DISINI: KE /game/ BUKAN /beli-game/ --}}
+                    <a href="{{ url('/game/' . $game->id) }}" class="btn btn-warning btn-sm mt-auto fw-bold text-dark w-100" style="font-size: 0.75rem;">
+                        Top Up
                     </a>
                 </div>
             </div>
         </div>
         @empty
         <div class="col-12 text-center text-white py-5">
-            <h3>Belum ada produk game tersedia.</h3>
+            <p>Kosong.</p>
         </div>
         @endforelse
 
