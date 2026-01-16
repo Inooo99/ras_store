@@ -1,48 +1,48 @@
 @extends('layout2')
 
-@section('title', 'Top Up Game - RAS STORE')
+@section('title', $game->nama_game . ' - Top Up Game')
 
 @section('content')
-<div class="text-center mb-4">
-    <h2 class="fw-bold text-light">Top Up Game</h2>
-    <p class="text-muted small">Murah & Aman.</p>
-</div>
-
-<div class="container">
-    <div class="row">
-
-        @forelse($games as $game)
-        {{-- SETTING GRID: 4 KEKANAN --}}
-        <div class="col-6 col-md-3 mb-3 px-2">
-            <div class="card bg-dark text-light shadow-sm border-secondary h-100">
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card bg-dark text-light shadow-lg border-secondary">
                 
-                @if($game->gambar)
-                    <img src="{{ asset('uploads/' . $game->gambar) }}" class="card-img-top" style="height: 130px; object-fit: cover;">
-                @else
-                    <div class="d-flex align-items-center justify-content-center bg-secondary text-white small" style="height: 130px;">No IMG</div>
-                @endif
+                <div class="card-header bg-transparent border-0 p-4 text-center">
+                    @if($game->gambar)
+                        <img src="{{ asset('uploads/' . $game->gambar) }}" 
+                             alt="{{ $game->nama_game }}" 
+                             class="img-fluid rounded shadow" 
+                             style="max-height: 350px; width: auto; max-width: 100%; object-fit: contain;">
+                    @else
+                        <div class="d-flex align-items-center justify-content-center bg-secondary text-white rounded" style="height: 250px;">
+                            <h3 class="text-white-50">No Logo</h3>
+                        </div>
+                    @endif
+                </div>
 
-                <div class="card-body text-center p-2 d-flex flex-column">
-                    <h6 class="fw-bold text-warning text-truncate mb-1" style="font-size: 0.9rem;">{{ $game->nama_game }}</h6>
-                    
-                    <div class="mb-1">
-                        <span class="badge bg-secondary" style="font-size: 0.6rem;">{{ $game->nominal }}</span>
+                <div class="card-body text-center px-5 pb-5">
+                    <h2 class="fw-bold text-warning mb-2">{{ $game->nama_game }}</h2>
+                    <div class="mb-4">
+                        <span class="badge bg-success fs-6">{{ $game->nominal }}</span>
                     </div>
-                    
-                    <p class="text-info fw-bold small mb-1">Rp {{ number_format($game->harga, 0, ',', '.') }}</p>
-                    
-                    <a href="{{ url('/game/' . $game->id) }}" class="btn btn-warning btn-sm mt-auto fw-bold text-dark w-100" style="font-size: 0.75rem;">
-                        Top Up
-                    </a>
+                    <h3 class="text-info fw-bold mb-4 display-6">Rp {{ number_format($game->harga, 0, ',', '.') }}</h3>
+                    <hr class="border-secondary my-4">
+                    <p class="text-white-50 fs-5 mb-5">
+                        Top up <strong>{{ $game->nama_game }}</strong> nominal <strong>{{ $game->nominal }}</strong>. 
+                        Proses cepat otomatis masuk ke akun Anda.
+                    </p>
+
+                    <div class="d-grid gap-2">
+                        {{-- TOMBOL CHECKOUT (Ke Midtrans) --}}
+                        <a href="{{ url('/beli-game/' . $game->id) }}" class="btn btn-warning btn-lg fw-bold text-dark shadow">
+                            <i class="fas fa-gamepad me-2"></i> Top Up Sekarang
+                        </a>
+                        <a href="{{ url('/kategori/game') }}" class="btn btn-outline-light mt-2">&larr; Kembali</a>
+                    </div>
                 </div>
             </div>
         </div>
-        @empty
-        <div class="col-12 text-center text-white py-5">
-            <p class="small">Kosong.</p>
-        </div>
-        @endforelse
-
     </div>
 </div>
 @endsection

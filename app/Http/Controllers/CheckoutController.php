@@ -27,7 +27,7 @@ class CheckoutController extends Controller
         $params = [
             'transaction_details' => [
                 'order_id' => $orderId,
-                'gross_amount' => (int) $item->price, // Pastikan Integer
+                'gross_amount' => (int) $item->price,
             ],
             'customer_details' => [
                 'first_name' => 'Pelanggan',
@@ -47,9 +47,9 @@ class CheckoutController extends Controller
         $params = [
             'transaction_details' => [
                 'order_id' => $orderId,
-                'gross_amount' => (int) $item->harga, // Pastikan Integer
+                'gross_amount' => (int) $item->harga,
             ],
-            // SAYA TAMBAHKAN INI AGAR TIDAK ERROR
+            // TAMBAHAN WAJIB AGAR MIDTRANS TIDAK ERROR
             'customer_details' => [
                 'first_name' => 'Pelanggan Sosmed',
                 'email' => 'customer@example.com',
@@ -68,9 +68,9 @@ class CheckoutController extends Controller
         $params = [
             'transaction_details' => [
                 'order_id' => $orderId,
-                'gross_amount' => (int) $item->harga, // Pastikan Integer
+                'gross_amount' => (int) $item->harga,
             ],
-            // SAYA TAMBAHKAN INI JUGA
+            // TAMBAHAN WAJIB
             'customer_details' => [
                 'first_name' => 'Gamer',
                 'email' => 'customer@example.com',
