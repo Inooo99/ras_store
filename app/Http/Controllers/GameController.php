@@ -84,4 +84,12 @@ class GameController extends Controller
         $game->delete();
         return redirect()->route('games.index')->with('success', 'Game berhasil dihapus!');
     }
+
+    // --- TAMBAHAN UNTUK PUBLIC VIEW ---
+    public function showPublic($id)
+    {
+        // Cari data game
+        $game = \App\Models\Game::findOrFail($id);
+        return view('game-detail', compact('game'));
+    }
 }

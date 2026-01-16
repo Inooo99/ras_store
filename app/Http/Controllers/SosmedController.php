@@ -83,4 +83,12 @@ class SosmedController extends Controller
         $sosmed->delete();
         return redirect()->route('sosmed.index')->with('success', 'Layanan berhasil dihapus!');
     }
+
+    // --- TAMBAHAN UNTUK PUBLIC VIEW ---
+    public function showPublic($id)
+    {
+        // Cari data sosmed, kalau gak ada error 404
+        $sosmed = \App\Models\Sosmed::findOrFail($id);
+        return view('sosmed-detail', compact('sosmed'));
+    }
 }

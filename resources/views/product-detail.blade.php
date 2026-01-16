@@ -24,7 +24,7 @@
                     @endif
                 </div>
 
-                <div class="card-body text-center px-5 pb-5">
+                <div class="card-body text-center px-3 pb-3">
                     {{-- Nama Produk --}}
                     <h2 class="fw-bold text-warning mb-2">{{ $product->name }}</h2>
                     

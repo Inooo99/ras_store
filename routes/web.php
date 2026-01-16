@@ -36,10 +36,16 @@ Route::get('/beli-game/{id}', [CheckoutController::class, 'game']);
 
 // --- RUTE PRODUK UNTUK PENGUNJUNG (PUBLIC) ---
 
-// 1. Untuk melihat detail produk (Misal: diklik dari home)
+// 1. Aplikasi Premium (Produk)
 Route::get('/produk/{id}', [ProductController::class, 'showPublic'])->name('product.detail');
 
-// 2. Untuk fitur pencarian (Search Bar)
+// 2. Suntik Sosmed
+Route::get('/sosmed/{id}', [SosmedController::class, 'showPublic'])->name('sosmed.detail');
+
+// 3. Top Up Game
+Route::get('/game/{id}', [GameController::class, 'showPublic'])->name('game.detail');
+
+// 4. Fitur Pencarian (Opsional, saat ini pakai ProductController)
 Route::get('/search', [ProductController::class, 'search'])->name('product.search');
 
 // --- ADMIN ---
