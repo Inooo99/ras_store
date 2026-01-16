@@ -16,7 +16,7 @@ return new class extends Migration
         $table->id();
         $table->string('nama_game');
         $table->string('nominal');
-        $table->decimal('harga', 10, 2);
+        $table->bigInteger('harga');
         $table->string('gambar')->nullable();
         $table->timestamps();
     });
