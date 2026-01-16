@@ -11,13 +11,13 @@
             margin: 0;
             display: flex;
             flex-direction: column;
-            background-color: #ffae00;
+            background-color: #ffae00; /* Warna Oranye Asli */
             color: #000000;
             font-family: 'Poppins', sans-serif;
         }
 
         nav {
-            background-color: #000000;
+            background-color: #000000; /* Navbar Hitam Asli */
         }
         nav a {
             color: #e0e0e0 !important;
@@ -27,8 +27,19 @@
             color: #ffffff !important;
         }
 
+        /* Fix: Agar Dropdown menu admin terlihat jelas */
+        .dropdown-menu {
+            background-color: #ffffff;
+        }
+        .dropdown-item {
+            color: #000000 !important;
+        }
+        .dropdown-item:hover {
+            background-color: #ffae00;
+        }
+
         main {
-            flex: 1; /* isi halaman akan mendorong footer ke bawah */
+            flex: 1;
         }
 
         footer {
@@ -39,6 +50,7 @@
             font-size: 0.9rem;
         }
 
+        /* Style Asli Anda */
         .card {
             background-color: #d28e0f;
             border: none;
@@ -54,6 +66,15 @@
         .btn-custom:hover {
             background-color: #ffffff;
             color: #000000;
+        }
+
+        .admin-container {
+            background-color: #ffffff;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            margin-top: 30px;
+            margin-bottom: 30px;
         }
     </style>
 </head>
@@ -71,8 +92,29 @@
                     <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('/about') }}">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('/post') }}">Produk</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url('/login') }}">Login</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url('/register') }}">Register</a></li>
+                    
+                    @guest
+                        <li class="nav-item"><a class="nav-link" href="{{ url('/login') }}">Login</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url('/register') }}">Register</a></li>
+                    @else
+                        @if(Auth::user()->role == 'admin')
+                            {{-- MODIFIKASI KECIL: DROPDOWN AGAR BISA PILIH MENU --}}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle fw-bold text-danger" href="#" role="button" data-bs-toggle="dropdown">
+                                    MENU ADMIN
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{ route('products.index') }}">Aplikasi Premium</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('sosmed.index') }}">Suntik Sosmed</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('games.index') }}">Topup Game</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item text-danger" href="{{ url('/logout') }}">Logout</a></li>
+                                </ul>
+                            </li>
+                        @else
+                            <li class="nav-item"><a class="nav-link text-danger" href="{{ url('/logout') }}">Logout</a></li>
+                        @endif
+                    @endguest
                 </ul>
             </div>
         </div>

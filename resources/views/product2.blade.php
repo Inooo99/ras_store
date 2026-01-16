@@ -11,31 +11,34 @@
 <div class="container">
     <div class="row justify-content-center">
 
-        <!-- Instagram -->
-        <div class="col-md-5 mb-4">
-            <div class="card bg-blue text-light shadow-lg border border-secondary h-100">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Followers" class="card-img-top rounded-top" width="10" height="300">
-                <div class="card-body text-center">
-                    <h4 class="fw-bold text-info">Instagram Followers</h4>
-                    <p class="text-muted mb-2">Rp 15.000 / 1000 followers</p>
-                    <p>Followers aktif dan real, meningkatkan kepercayaan audiens dan memperkuat branding akunmu.</p>
-                    <a href="{{ url('/post') }}" class="btn btn-outline-info mt-2">← Kembali ke Produk</a>
-                </div>
-            </div>
-        </div>
+        {{-- LOOPING SOSMED --}}
+        @forelse($sosmeds as $item)
+        <div class="col-md-4 mb-4">
+            <div class="card bg-dark text-light shadow-lg border-secondary h-100">
+                
+                @if($item->gambar)
+                    <img src="{{ asset('uploads/' . $item->gambar) }}" class="card-img-top" style="height: 250px; object-fit: cover;">
+                @else
+                    <div class="d-flex align-items-center justify-content-center bg-secondary" style="height: 250px;">No Image</div>
+                @endif
 
-        <!-- Instagram -->
-        <div class="col-md-5 mb-4">
-            <div class="card bg-blue text-light shadow-lg border border-secondary h-100">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Followers" class="card-img-top rounded-top" width="10" height="300">
-                <div class="card-body text-center">
-                    <h4 class="fw-bold text-danger">Instagram Followers</h4>
-                    <p class="text-muted mb-2">Rp 25.000 / 1500 followers</p>
-                    <p>Followers aktif dan real, meningkatkan kepercayaan audiens dan memperkuat branding akunmu.</p>
-                    <a href="{{ url('/post') }}" class="btn btn-outline-info mt-2">← Kembali ke Produk</a>
+                <div class="card-body text-center d-flex flex-column">
+                    <h4 class="fw-bold text-warning">{{ $item->nama_layanan }}</h4>
+                    <p class="text-info fw-bold mb-2">Rp {{ number_format($item->harga, 0, ',', '.') }}</p>
+                    <p class="small text-white-50 flex-grow-1">{{ $item->deskripsi }}</p>
+
+                    {{-- Pembelian --}}
+                    <a href="{{ url('/beli-sosmed/' . $item->id) }}" class="btn btn-warning mt-3 fw-bold text-dark w-100">
+                        Pesan Layanan
+                    </a>
                 </div>
             </div>
         </div>
+        @empty
+        <div class="col-12 text-center text-white py-5">
+            <h3>Belum ada layanan sosmed tersedia.</h3>
+        </div>
+        @endforelse
 
     </div>
 </div>

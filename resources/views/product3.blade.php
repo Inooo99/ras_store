@@ -11,31 +11,37 @@
 <div class="container">
     <div class="row justify-content-center">
 
-        <!-- Mobile Legends -->
-        <div class="col-md-5 mb-4">
-            <div class="card bg-blue text-light shadow-lg border border-secondary h-100">
-                <img src="https://buatlogoonline.com/wp-content/uploads/2022/10/Logo-Mobile-Legends-2048x1178.png" alt="Mobile Legends" class="card-img-top rounded-top" width="10" height="300">
-                <div class="card-body text-center">
-                    <h4 class="fw-bold text-info">Mobile Legends</h4>
-                    <p class="text-muted mb-2">Rp 10.000 / 86 Diamond</p>
-                    <p>Top up diamond ML cepat dan terpercaya, cocok untuk push rank atau beli skin impianmu.</p>
-                    <a href="{{ url('/post') }}" class="btn btn-outline-info mt-2">← Kembali ke Produk</a>
-                </div>
-            </div>
-        </div>
+        {{-- LOOPING GAMES --}}
+        @forelse($games as $game)
+        <div class="col-md-4 mb-4">
+            <div class="card bg-dark text-light shadow-lg border-secondary h-100">
+                
+                @if($game->gambar)
+                    <img src="{{ asset('uploads/' . $game->gambar) }}" class="card-img-top" style="height: 250px; object-fit: cover;">
+                @else
+                    <div class="d-flex align-items-center justify-content-center bg-secondary" style="height: 250px;">No Logo</div>
+                @endif
 
-        <!-- Mobile Legends -->
-        <div class="col-md-5 mb-4">
-            <div class="card bg-blue text-light shadow-lg border border-secondary h-100">
-                <img src="https://buatlogoonline.com/wp-content/uploads/2022/10/Logo-Mobile-Legends-2048x1178.png" alt="Mobile Legends" class="card-img-top rounded-top" width="10" height="300">
-                <div class="card-body text-center">
-                    <h4 class="fw-bold text-danger">Mobile Legends</h4>
-                    <p class="text-muted mb-2">Rp 20.000 / 120 Diamond</p>
-                    <p>Top up diamond ML cepat dan terpercaya, cocok untuk push rank atau beli skin impianmu.</p>
-                    <a href="{{ url('/post') }}" class="btn btn-outline-info mt-2">← Kembali ke Produk</a>
+                <div class="card-body text-center d-flex flex-column">
+                    <h4 class="fw-bold text-warning">{{ $game->nama_game }}</h4>
+                    
+                    {{-- Tampilkan Nominal (Contoh: 86 Diamonds) --}}
+                    <div class="badge bg-secondary mb-2 fs-6">{{ $game->nominal }}</div>
+                    
+                    <p class="text-info fw-bold fs-5">Rp {{ number_format($game->harga, 0, ',', '.') }}</p>
+                    
+                    {{-- Pembelian --}}
+                    <a href="{{ url('/beli-game/' . $game->id) }}" class="btn btn-warning mt-3 fw-bold text-dark w-100">
+                        Top Up Sekarang
+                    </a>
                 </div>
             </div>
         </div>
+        @empty
+        <div class="col-12 text-center text-white py-5">
+            <h3>Belum ada produk game tersedia.</h3>
+        </div>
+        @endforelse
 
     </div>
 </div>

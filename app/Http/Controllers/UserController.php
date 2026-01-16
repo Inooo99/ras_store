@@ -18,21 +18,29 @@ class UserController extends Controller
     // Proses register pengguna baru
     public function register(Request $request)
     {
+        // 1. Validasi Input
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6|confirmed'
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:5|confirmed'
         ]);
 
-        $user = User::create([
+        // 2. Buat User Baru
+        // (Pastikan model User diimport: use App\Models\User;)
+        \App\Models\User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password)
+            'password' => bcrypt($request->password),
+            'role' => 'user' // Default role user biasa
         ]);
 
-        Auth::login($user);
+        // --- PERUBAHAN DI SINI ---
+        
+        // DULU: Auth::login($user); (Ini yang bikin langsung masuk)
+        // SEKARANG: Kita hapus baris login otomatis itu.
 
-        return redirect('/home')->with('success', 'Berhasil daftar!');
+        // Alihkan ke halaman login dengan pesan sukses
+        return redirect('/login')->with('success', 'Registrasi berhasil! Silakan login.');
     }
 
     // Tampilkan form login
