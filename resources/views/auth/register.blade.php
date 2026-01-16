@@ -32,7 +32,6 @@
         @endif
 
         {{-- FORMULIR --}}
-        {{-- SAYA UBAH DISINI: Pakai url() biar tidak error "Route not defined" --}}
         <form action="{{ url('/register') }}" method="POST">
             @csrf
             

@@ -1,87 +1,50 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SosmedController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\CheckoutController;
-use App\Models\Product;
-use App\Models\Sosmed;
-use App\Models\Game;
-use Illuminate\Support\Facades\Artisan;
 
-// --- HALAMAN AUTH ---
-Route::get('/register', [UserController::class, 'showRegister'])->name('register.show');
-Route::post('/register', [UserController::class, 'register'])->name('register');
-Route::get('/login', [UserController::class, 'showLogin'])->name('login');
-Route::post('/login', [UserController::class, 'login']);
-Route::get('/logout', [UserController::class, 'logout']);
+/*
+|--------------------------------------------------------------------------
+| Web Routes - SUDAH DIRAPIKAN
+|--------------------------------------------------------------------------
+*/
 
 // --- HALAMAN PUBLIC ---
-Route::get('/', function () { return view('welcome'); });
+Route::get('/', function () { return view('home'); })->name('home');
 Route::get('/home', function () { return view('home'); });
 Route::get('/about', function () { return view('about'); });
 Route::get('/post', function () { return view('post'); });
 
-// --- RUTE PRODUK DINAMIS (USER VIEW) ---
-
-// Halaman Utama
-Route::get('/', function () {
-    return view('home'); // Sesuaikan dengan view home Anda
-})->name('home');
-
-// === BAGIAN REGISTER (PERBAIKAN DISINI) ===
-// 1. Tampilkan Form
-Route::get('/register', [UserController::class, 'showRegister'])->name('register.form');
-
-// 2. Proses Data (INI YANG DICARI OLEH FORM BLADE)
+// --- AUTHENTICATION (REGISTER & LOGIN) ---
+// Perhatikan: Saya pakai name('register') di POST agar form blade tidak error
+Route::get('/register', [UserController::class, 'showRegister'])->name('register.show');
 Route::post('/register', [UserController::class, 'register'])->name('register'); 
-// ^^^ Perhatikan ->name('register') ini wajib ada!
 
-// === BAGIAN LOGIN ===
 Route::get('/login', [UserController::class, 'showLogin'])->name('login');
 Route::post('/login', [UserController::class, 'login'])->name('login.perform');
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
-// --- RUTE PEMBAYARAN MIDTRANS ---
+// --- PEMBAYARAN ---
 Route::get('/beli-premium/{id}', [CheckoutController::class, 'premium']);
 Route::get('/beli-sosmed/{id}', [CheckoutController::class, 'sosmed']);
 Route::get('/beli-game/{id}', [CheckoutController::class, 'game']);
 
-// --- HALAMAN ADMIN (DILINDUNGI) ---
+// --- ADMIN PANEL ---
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('admin/products', ProductController::class)->names('products');
     Route::resource('admin/sosmed', SosmedController::class);
     Route::resource('admin/games', GameController::class);
 });
 
-// --- TOMBOL RAHASIA UNTUK MIGRASI ---
+// --- RESET DATABASE DARURAT ---
 Route::get('/paksa-migrasi', function () {
-    // 1. Bersihkan Cache
     Artisan::call('optimize:clear');
-    
-    // 2. Paksa Migrasi Database
     Artisan::call('migrate:fresh --force');
-    
-    // 3. Buat Storage Link
     Artisan::call('storage:link');
-
-    return "<h1>SUKSES! Database sudah di-reset dan di-migrasi.</h1><br>" . nl2br(Artisan::output());
-});
-
-// --- OBAT PERBAIKI PASSWORD ADMIN ---
-Route::get('/obat-ganteng', function () {
-    // 1. Hapus Admin yang error (Kita buang data rusaknya)
-    \App\Models\User::where('email', 'admin@gmail.com')->delete();
-
-    // 2. Buat Ulang Admin Baru (Dijamin Bersih)
-    $user = new \App\Models\User();
-    $user->name = 'Admin Zino';
-    $user->email = 'admin@gmail.com';
-    // Hash::make adalah KUNCI agar tidak error "Bcrypt" lagi
-    $user->password = \Illuminate\Support\Facades\Hash::make('password'); 
-    $user->save();
-
-    return "<h1>SUKSES!</h1> Data admin lama sudah dibuang. Admin baru sudah dibuat.<br>Silakan Login sekarang.";
+    return "<h1>SUKSES!</h1> Database sudah di-reset bersih.";
 });
