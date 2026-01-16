@@ -69,3 +69,16 @@ Route::get('/paksa-migrasi', function () {
 
     return "<h1>SUKSES! Database sudah di-reset dan di-migrasi.</h1><br>" . nl2br(Artisan::output());
 });
+
+Route::get('/reset-admin', function () {
+    $user = \App\Models\User::where('email', 'admin@gmail.com')->first();
+    
+    if ($user) {
+        // Ini akan otomatis membuat hash yang BENAR sesuai sistem Anda
+        $user->password = \Illuminate\Support\Facades\Hash::make('password');
+        $user->save();
+        return "SUKSES! Password admin@gmail.com sudah diubah jadi: password";
+    }
+    
+    return "GAGAL: User admin@gmail.com tidak ditemukan di database.";
+});
