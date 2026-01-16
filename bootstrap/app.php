@@ -11,10 +11,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        
-        // --- TAMBAHKAN BAGIAN INI ---
         $middleware->alias([
-            'admin' => \App\Http\Middleware\Admin::class,
+            // Pastikan arahnya ke file yang baru dibuat
+            'admin' => \App\Http\Middleware\Admin::class, 
         ]);
         // ----------------------------
         
