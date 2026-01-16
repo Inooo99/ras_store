@@ -12,7 +12,7 @@ use App\Models\Game;
 use Illuminate\Support\Facades\Artisan;
 
 // --- HALAMAN AUTH ---
-Route::get('/register', [UserController::class, 'showRegister']);
+Route::get('/register', [UserController::class, 'showRegister'])->name('register');
 Route::post('/register', [UserController::class, 'register']);
 Route::get('/login', [UserController::class, 'showLogin'])->name('login');
 Route::post('/login', [UserController::class, 'login']);
