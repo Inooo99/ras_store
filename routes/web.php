@@ -70,15 +70,18 @@ Route::get('/paksa-migrasi', function () {
     return "<h1>SUKSES! Database sudah di-reset dan di-migrasi.</h1><br>" . nl2br(Artisan::output());
 });
 
-Route::get('/reset-admin', function () {
-    $user = \App\Models\User::where('email', 'admin@gmail.com')->first();
-    
-    if ($user) {
-        // Ini akan otomatis membuat hash yang BENAR sesuai sistem Anda
-        $user->password = \Illuminate\Support\Facades\Hash::make('password');
-        $user->save();
-        return "SUKSES! Password admin@gmail.com sudah diubah jadi: password";
-    }
-    
-    return "GAGAL: User admin@gmail.com tidak ditemukan di database.";
+// --- OBAT PERBAIKI PASSWORD ADMIN ---
+Route::get('/obat-ganteng', function () {
+    // 1. Hapus Admin yang error (Kita buang data rusaknya)
+    \App\Models\User::where('email', 'admin@gmail.com')->delete();
+
+    // 2. Buat Ulang Admin Baru (Dijamin Bersih)
+    $user = new \App\Models\User();
+    $user->name = 'Admin Zino';
+    $user->email = 'admin@gmail.com';
+    // Hash::make adalah KUNCI agar tidak error "Bcrypt" lagi
+    $user->password = \Illuminate\Support\Facades\Hash::make('password'); 
+    $user->save();
+
+    return "<h1>SUKSES!</h1> Data admin lama sudah dibuang. Admin baru sudah dibuat.<br>Silakan Login sekarang.";
 });
