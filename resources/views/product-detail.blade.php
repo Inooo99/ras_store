@@ -1,38 +1,52 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $product->name }} - Ras Store</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-50 min-h-screen">
+@extends('layout2')
 
-    <div class="max-w-4xl mx-auto py-10 px-4">
-        {{-- Tombol Kembali --}}
-        <a href="{{ url('/') }}" class="text-yellow-600 hover:underline mb-4 inline-block">&larr; Kembali ke Home</a>
+{{-- Judul Halaman --}}
+@section('title', $product->name . ' - Detail Produk')
 
-        <div class="bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row">
-            {{-- Gambar Produk --}}
-            <div class="w-full md:w-1/2 h-64 md:h-auto bg-gray-200">
-                <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
-            </div>
-
-            {{-- Info Produk --}}
-            <div class="w-full md:w-1/2 p-8 flex flex-col justify-center">
-                <h1 class="text-3xl font-bold text-gray-800 mb-2">{{ $product->name }}</h1>
-                <p class="text-2xl text-yellow-600 font-bold mb-4">Rp {{ number_format($product->price, 0, ',', '.') }}</p>
+@section('content')
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            
+            {{-- KARTU PRODUK (Gaya Dark Mode) --}}
+            <div class="card bg-dark text-light shadow-lg border-secondary">
                 
-                <p class="text-gray-600 mb-6 leading-relaxed">
-                    {{ $product->description }}
-                </p>
+                {{-- Gambar --}}
+                @if($product->image)
+                    <img src="{{ asset('uploads/' . $product->image) }}" class="card-img-top" alt="{{ $product->name }}" style="max-height: 400px; object-fit: cover;">
+                @else
+                    <div class="d-flex align-items-center justify-content-center bg-secondary text-white" style="height: 300px;">
+                        No Image Available
+                    </div>
+                @endif
 
-                <button class="w-full bg-yellow-600 text-white font-bold py-3 rounded-lg hover:bg-yellow-700 transition shadow-lg shadow-yellow-600/20">
-                    Beli Sekarang
-                </button>
+                <div class="card-body text-center p-5">
+                    {{-- Nama Produk --}}
+                    <h2 class="fw-bold text-warning mb-3">{{ $product->name }}</h2>
+                    
+                    {{-- Harga --}}
+                    <h3 class="text-info fw-bold mb-4">Rp {{ number_format($product->price, 0, ',', '.') }}</h3>
+                    
+                    {{-- Deskripsi --}}
+                    <p class="text-white-50 fs-5 mb-5 leading-relaxed">
+                        {{ $product->description }}
+                    </p>
+
+                    {{-- Tombol Beli (Mengarah ke rute beli-premium) --}}
+                    <a href="{{ url('/beli-premium/' . $product->id) }}" class="btn btn-warning btn-lg fw-bold text-dark w-100 shadow">
+                        Beli Sekarang
+                    </a>
+                </div>
             </div>
+            
+            {{-- Tombol Kembali --}}
+            <div class="text-center mt-4 mb-5">
+                <a href="{{ url('/') }}" class="text-muted text-decoration-none hover:text-white transition">
+                    &larr; Kembali ke Halaman Utama
+                </a>
+            </div>
+
         </div>
     </div>
-
-</body>
-</html>
+</div>
+@endsection
