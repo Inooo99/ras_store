@@ -1,49 +1,57 @@
 @extends('layout2')
 
-{{-- Judul Halaman --}}
 @section('title', $product->name . ' - Detail Produk')
 
 @section('content')
-<div class="container mt-5">
+<div class="container mt-5 mb-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
             
-            {{-- KARTU PRODUK (Gaya Dark Mode) --}}
+            {{-- KARTU DETAIL PRODUK (Gaya Dark Mode) --}}
             <div class="card bg-dark text-light shadow-lg border-secondary">
                 
-                {{-- Gambar --}}
-                @if($product->image)
-                    <img src="{{ asset('uploads/' . $product->image) }}" class="card-img-top" alt="{{ $product->name }}" style="max-height: 400px; object-fit: cover;">
-                @else
-                    <div class="d-flex align-items-center justify-content-center bg-secondary text-white" style="height: 300px;">
-                        No Image Available
-                    </div>
-                @endif
+                {{-- AREA GAMBAR (Saya perbaiki style-nya disini) --}}
+                <div class="card-header bg-transparent border-0 p-4 text-center">
+                    @if($product->image)
+                        <img src="{{ asset('uploads/' . $product->image) }}" 
+                             alt="{{ $product->name }}" 
+                             class="img-fluid rounded shadow" 
+                             style="max-height: 350px; width: auto; max-width: 100%; object-fit: contain;">
+                    @else
+                        <div class="d-flex align-items-center justify-content-center bg-secondary text-white rounded" style="height: 300px;">
+                            <h3 class="text-white-50">No Image Available</h3>
+                        </div>
+                    @endif
+                </div>
 
-                <div class="card-body text-center p-5">
+                <div class="card-body text-center px-5 pb-5">
                     {{-- Nama Produk --}}
-                    <h2 class="fw-bold text-warning mb-3">{{ $product->name }}</h2>
+                    <h2 class="fw-bold text-warning mb-2">{{ $product->name }}</h2>
                     
+                    {{-- Kategori / Label Kecil (Opsional) --}}
+                    <span class="badge bg-secondary mb-4">Produk Premium</span>
+
                     {{-- Harga --}}
-                    <h3 class="text-info fw-bold mb-4">Rp {{ number_format($product->price, 0, ',', '.') }}</h3>
+                    <h3 class="text-info fw-bold mb-4 display-6">Rp {{ number_format($product->price, 0, ',', '.') }}</h3>
                     
+                    {{-- Garis Pemisah --}}
+                    <hr class="border-secondary my-4">
+
                     {{-- Deskripsi --}}
-                    <p class="text-white-50 fs-5 mb-5 leading-relaxed">
+                    <p class="text-white-50 fs-5 mb-5 leading-relaxed text-start">
                         {{ $product->description }}
                     </p>
 
-                    {{-- Tombol Beli (Mengarah ke rute beli-premium) --}}
-                    <a href="{{ url('/beli-premium/' . $product->id) }}" class="btn btn-warning btn-lg fw-bold text-dark w-100 shadow">
-                        Beli Sekarang
-                    </a>
+                    {{-- Tombol Aksi --}}
+                    <div class="d-grid gap-2">
+                        <a href="{{ url('/beli-premium/' . $product->id) }}" class="btn btn-warning btn-lg fw-bold text-dark shadow">
+                            <i class="fas fa-shopping-cart me-2"></i> Beli Sekarang
+                        </a>
+                        <a href="{{ url('/') }}" class="btn btn-outline-light mt-2">
+                            &larr; Kembali ke Daftar Produk
+                        </a>
+                    </div>
                 </div>
-            </div>
-            
-            {{-- Tombol Kembali --}}
-            <div class="text-center mt-4 mb-5">
-                <a href="{{ url('/') }}" class="text-muted text-decoration-none hover:text-white transition">
-                    &larr; Kembali ke Halaman Utama
-                </a>
             </div>
 
         </div>
