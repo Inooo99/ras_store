@@ -12,9 +12,8 @@
     <div class="row justify-content-center">
 
         @forelse($games as $game)
-        {{-- Tampilan Kecil (4 Kolom) --}}
-        <div class="col-6 col-md-3 mb-3 px-2">
-            <div class="card bg-dark text-light shadow-sm border-secondary h-100">
+        <div class="col-6 col-md-3 mb-4 px-2">
+            <div class="card bg-dark text-light shadow-lg border-secondary h-100">
                 
                 @if($game->gambar)
                     <img src="{{ asset('uploads/' . $game->gambar) }}" class="card-img-top" style="height: 130px; object-fit: cover;">
@@ -22,14 +21,13 @@
                     <div class="d-flex align-items-center justify-content-center bg-secondary small" style="height: 130px;">No IMG</div>
                 @endif
 
-                <div class="card-body text-center p-2 d-flex flex-column">
-                    <h6 class="fw-bold text-warning text-truncate mb-1" style="font-size: 0.9rem;">{{ $game->nama_game }}</h6>
+                <div class="card-body text-center d-flex flex-column p-3">
+                    <h6 class="fw-bold text-warning text-truncate">{{ $game->nama_game }}</h6>
                     <div class="mb-1"><span class="badge bg-secondary" style="font-size: 0.6rem;">{{ $game->nominal }}</span></div>
-                    <p class="text-info fw-bold small mb-1">Rp {{ number_format($game->harga, 0, ',', '.') }}</p>
+                    <p class="text-info fw-bold mb-2 small">Rp {{ number_format($game->harga, 0, ',', '.') }}</p>
                     
-                    {{-- TOMBOL DIPERBAIKI: Mengarah ke /game/{id} --}}
-                    <a href="{{ url('/game/' . $game->id) }}" class="btn btn-warning btn-sm mt-auto fw-bold text-dark w-100" style="font-size: 0.75rem;">
-                        Top Up Sekarang
+                    <a href="{{ url('/game/' . $game->id) }}" class="btn btn-warning btn-sm mt-auto fw-bold text-dark w-100">
+                        Top Up
                     </a>
                 </div>
             </div>

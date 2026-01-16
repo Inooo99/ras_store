@@ -11,36 +11,34 @@
 <div class="container">
     <div class="row justify-content-center">
 
-        {{-- LOOPING DATA DARI DATABASE --}}
         @forelse($products as $product)
-        <div class="col-md-4 mb-4">
+        {{-- SAYA UBAH JADI KECIL: col-6 (HP 2 baris) col-md-3 (Laptop 4 baris) --}}
+        <div class="col-6 col-md-3 mb-4 px-2">
             <div class="card bg-dark text-light shadow-lg border-secondary h-100">
                 
-                {{-- Logika Gambar --}}
                 @if($product->image)
-                    <img src="{{ asset('uploads/' . $product->image) }}" class="card-img-top" alt="{{ $product->name }}" style="height: 250px; object-fit: cover;">
+                    {{-- Gambar saya set 130px biar imut --}}
+                    <img src="{{ asset('uploads/' . $product->image) }}" class="card-img-top" alt="{{ $product->name }}" style="height: 130px; object-fit: cover;">
                 @else
-                    <div class="d-flex align-items-center justify-content-center bg-secondary text-white" style="height: 250px;">
-                        No Image
+                    <div class="d-flex align-items-center justify-content-center bg-secondary text-white" style="height: 130px;">
+                        No IMG
                     </div>
                 @endif
 
-                <div class="card-body text-center d-flex flex-column">
-                    <h4 class="fw-bold text-warning">{{ $product->name }}</h4>
-                    <p class="text-info fw-bold mb-2">Rp {{ number_format($product->price, 0, ',', '.') }}</p>
-                    <p class="small text-white-50 flex-grow-1">{{ $product->description }}</p>
-
-                    {{-- Tombol Beli --}}
-                    <a href="{{ url('/beli-premium/' . $product->id) }}" class="btn btn-warning mt-3 fw-bold text-dark w-100">
-                        Beli Sekarang
+                <div class="card-body text-center d-flex flex-column p-3">
+                    <h6 class="fw-bold text-warning text-truncate">{{ $product->name }}</h6>
+                    <p class="text-info fw-bold mb-2 small">Rp {{ number_format($product->price, 0, ',', '.') }}</p>
+                    
+                    {{-- Tombol Detail --}}
+                    <a href="{{ url('/produk/' . $product->id) }}" class="btn btn-warning btn-sm mt-auto fw-bold text-dark w-100">
+                        Beli
                     </a>
                 </div>
             </div>
         </div>
         @empty
         <div class="col-12 text-center text-white py-5">
-            <h3>Belum ada produk aplikasi premium saat ini.</h3>
-            <p>Silakan input data melalui Admin Panel.</p>
+            <p>Belum ada produk.</p>
         </div>
         @endforelse
 
