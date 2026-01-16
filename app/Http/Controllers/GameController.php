@@ -88,7 +88,6 @@ class GameController extends Controller
     // --- TAMBAHAN UNTUK PUBLIC VIEW ---
     public function showPublic($id)
     {
-        // Cari data game
         $game = \App\Models\Game::findOrFail($id);
         return view('game-detail', compact('game'));
     }

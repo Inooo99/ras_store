@@ -87,7 +87,6 @@ class SosmedController extends Controller
     // --- TAMBAHAN UNTUK PUBLIC VIEW ---
     public function showPublic($id)
     {
-        // Cari data sosmed, kalau gak ada error 404
         $sosmed = \App\Models\Sosmed::findOrFail($id);
         return view('sosmed-detail', compact('sosmed'));
     }

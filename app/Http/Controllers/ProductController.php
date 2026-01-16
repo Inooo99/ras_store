@@ -84,13 +84,6 @@ class ProductController extends Controller
     // --- FUNGSI TAMBAHAN UNTUK PUBLIC ---
 
     // Menampilkan Detail Produk ke Pengunjung
-    public function showPublic($id)
-    {
-        $product = Product::findOrFail($id);
-        // Pastikan Anda punya file view 'product-detail.blade.php'
-        // Jika belum ada, ganti 'product-detail' dengan 'welcome' atau view lain dulu
-        return view('product-detail', compact('product'));
-    }
 
     // Fitur Pencarian Produk
     public function search(Request $request)
@@ -102,5 +95,11 @@ class ProductController extends Controller
         
         // Tampilkan di halaman home dengan hasil pencarian
         return view('home', compact('products'));
+    }
+
+    public function showPublic($id)
+    {
+        $product = \App\Models\Product::findOrFail($id);
+        return view('product-detail', compact('product'));
     }
 }
