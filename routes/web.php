@@ -34,6 +34,14 @@ Route::get('/beli-premium/{id}', [CheckoutController::class, 'premium']);
 Route::get('/beli-sosmed/{id}', [CheckoutController::class, 'sosmed']);
 Route::get('/beli-game/{id}', [CheckoutController::class, 'game']);
 
+// --- RUTE PRODUK UNTUK PENGUNJUNG (PUBLIC) ---
+
+// 1. Untuk melihat detail produk (Misal: diklik dari home)
+Route::get('/product/{id}', [ProductController::class, 'showPublic'])->name('product.detail');
+
+// 2. Untuk fitur pencarian (Search Bar)
+Route::get('/search', [ProductController::class, 'search'])->name('product.search');
+
 // --- ADMIN ---
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('admin/products', ProductController::class)->names('products');

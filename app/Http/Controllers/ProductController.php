@@ -80,4 +80,27 @@ class ProductController extends Controller
         $product->delete();
         return redirect()->route('products.index')->with('success', 'Produk dihapus!');
     }
+
+    // --- FUNGSI TAMBAHAN UNTUK PUBLIC ---
+
+    // Menampilkan Detail Produk ke Pengunjung
+    public function showPublic($id)
+    {
+        $product = Product::findOrFail($id);
+        // Pastikan Anda punya file view 'product-detail.blade.php'
+        // Jika belum ada, ganti 'product-detail' dengan 'welcome' atau view lain dulu
+        return view('product-detail', compact('product'));
+    }
+
+    // Fitur Pencarian Produk
+    public function search(Request $request)
+    {
+        $keyword = $request->input('query');
+        
+        // Cari produk yang namanya mirip keyword
+        $products = Product::where('name', 'LIKE', "%{$keyword}%")->get();
+        
+        // Tampilkan di halaman home dengan hasil pencarian
+        return view('home', compact('products'));
+    }
 }
