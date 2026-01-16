@@ -12,12 +12,10 @@
     <div class="row justify-content-center">
 
         @forelse($products as $product)
-        {{-- SAYA UBAH JADI KECIL: col-6 (HP 2 baris) col-md-3 (Laptop 4 baris) --}}
         <div class="col-6 col-md-3 mb-4 px-2">
             <div class="card bg-dark text-light shadow-lg border-secondary h-100">
                 
                 @if($product->image)
-                    {{-- Gambar saya set 130px biar imut --}}
                     <img src="{{ asset('uploads/' . $product->image) }}" class="card-img-top" alt="{{ $product->name }}" style="height: 130px; object-fit: cover;">
                 @else
                     <div class="d-flex align-items-center justify-content-center bg-secondary text-white" style="height: 130px;">
@@ -29,9 +27,9 @@
                     <h6 class="fw-bold text-warning text-truncate">{{ $product->name }}</h6>
                     <p class="text-info fw-bold mb-2 small">Rp {{ number_format($product->price, 0, ',', '.') }}</p>
                     
-                    {{-- Tombol Detail --}}
-                    <a href="{{ url('/produk/' . $product->id) }}" class="btn btn-warning btn-sm mt-auto fw-bold text-dark w-100">
-                        Beli
+                    {{-- TOMBOL LANGSUNG BAYAR (BYPASS DETAIL) --}}
+                    <a href="{{ url('/beli-premium/' . $product->id) }}" class="btn btn-warning btn-sm mt-auto fw-bold text-dark w-100">
+                        Beli Sekarang
                     </a>
                 </div>
             </div>

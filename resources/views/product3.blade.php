@@ -26,7 +26,8 @@
                     <div class="mb-1"><span class="badge bg-secondary" style="font-size: 0.6rem;">{{ $game->nominal }}</span></div>
                     <p class="text-info fw-bold mb-2 small">Rp {{ number_format($game->harga, 0, ',', '.') }}</p>
                     
-                    <a href="{{ url('/game/' . $game->id) }}" class="btn btn-warning btn-sm mt-auto fw-bold text-dark w-100">
+                    {{-- TOMBOL LANGSUNG BAYAR (BYPASS DETAIL) --}}
+                    <a href="{{ url('/beli-game/' . $game->id) }}" class="btn btn-warning btn-sm mt-auto fw-bold text-dark w-100">
                         Top Up
                     </a>
                 </div>

@@ -25,8 +25,9 @@
                     <h6 class="fw-bold text-warning text-truncate">{{ $item->nama_layanan }}</h6>
                     <p class="text-info fw-bold mb-2 small">Rp {{ number_format($item->harga, 0, ',', '.') }}</p>
 
-                    <a href="{{ url('/sosmed/' . $item->id) }}" class="btn btn-warning btn-sm mt-auto fw-bold text-dark w-100">
-                        Pesan
+                    {{-- TOMBOL LANGSUNG BAYAR (BYPASS DETAIL) --}}
+                    <a href="{{ url('/beli-sosmed/' . $item->id) }}" class="btn btn-warning btn-sm mt-auto fw-bold text-dark w-100">
+                        Pesan Layanan
                     </a>
                 </div>
             </div>
