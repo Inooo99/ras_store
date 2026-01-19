@@ -5,7 +5,7 @@
 @section('content')
 <div class="text-center">
     <h1 class="fw-bold mb-3">Selamat Datang di RAS STORE</h1>
-    <p class="text-muted">Websiteeeeeeeeee Jualan Open Source untuk Menjual Produk Digital</p>
+    <p class="text-muted">Website Jualan Open Source untuk Menjual Produk Digital</p>
     <a href="{{ url('/post') }}" class="btn btn-custom mt-3">Lihat Postingan</a>
 </div>
 
